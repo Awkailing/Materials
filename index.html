@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Review the AI Recommendation: Bus Route Cuts</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f7f4;--surf:#fff;--ink:#16262c;--mute:#5d6d73;--line:#d8dfdc;--keep:#1f7a6d;--cut:#c4432b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10191c;--surf:#18262b;--ink:#e8eeee;--mute:#9db0b5;--line:#2c3e44;--keep:#4cc3b0;--cut:#ff7c63;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10191c;--surf:#18262b;--ink:#e8eeee;--mute:#9db0b5;--line:#2c3e44;--keep:#4cc3b0;--cut:#ff7c63;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:900px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:clamp(26px,4vw,36px);font-weight:800;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-size:18px;margin:0 0 10px}
+p{margin:0 0 10px}.sub{color:var(--mute)}
+.panel{background:var(--surf);border:1px solid var(--line);border-radius:6px;padding:16px;margin-top:18px}
+.rec{border-left:6px solid var(--cut)}
+.vendor{font-size:13px;color:var(--mute);margin-bottom:8px}
+.big{font-size:clamp(20px,3vw,26px);font-weight:800;line-height:1.3;margin-bottom:10px}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.s{flex:1 1 140px;border:1px solid var(--line);border-radius:6px;padding:8px 12px}
+.s b{display:block;font-size:22px;font-weight:800}.s span{font-size:13px;color:var(--mute)}
+.why{background:var(--bg);border-radius:6px;padding:10px 12px;font-size:14px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+th,td{text-align:left;padding:8px 10px;border-top:1px solid var(--line)}
+th{font-size:13px;color:var(--mute);font-weight:600;border-top:0}
+td.n{text-align:right;font-variant-numeric:tabular-nums}th.n{text-align:right}
+tr.cut td{background:color-mix(in srgb,var(--cut) 10%,transparent)}
+.tag{display:inline-block;font-size:12px;font-weight:800;padding:2px 8px;border-radius:4px;border:2px solid var(--keep);color:var(--keep)}
+.cut .tag{border-style:dashed;border-color:var(--cut);color:var(--cut)}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 2px}
+label small{display:block;font-weight:400;color:var(--mute);font-size:13px}
+textarea,input[type=text]{width:100%;padding:10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:inherit;font-size:15px}
+textarea{min-height:84px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+button{padding:10px 16px;border-radius:6px;border:1px solid var(--ink);background:var(--ink);color:var(--surf);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+button.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+button:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid var(--keep);outline-offset:2px}
+#msg{font-size:14px;color:var(--keep)}
+#out{display:none;margin-top:12px;min-height:160px}
+</style>
+</head>
+<body>
+<main>
+<h1>Review the AI recommendation</h1>
+<p class="sub">The city must cut its bus budget. The agency bought an AI tool to decide which routes to remove. Read what it recommends, then write your critique below.</p>
+
+<section class="panel rec" aria-label="AI recommendation">
+<div class="vendor">RouteWise Optimizer · Output for the city transit board</div>
+<div class="big">Recommendation: discontinue routes R6, R7 and R8.</div>
+<div class="stats" id="stats"></div>
+<div class="why"><b>Model rationale:</b> routes were ranked by riders per dollar of operating cost, using smartphone app and fare-card data. The three lowest-ranked routes are removed. Model confidence: 94%.</div>
+</section>
+
+<section class="panel" aria-label="Data the model used">
+<h2>The data the model used</h2>
+<div class="tw"><table><thead><tr><th>Route</th><th class="n">Cost ($k/day)</th><th class="n">Riders (card and app)</th><th class="n">Riders per $1k</th><th>Decision</th></tr></thead><tbody id="tb"></tbody></table></div>
+</section>
+
+<section class="panel" aria-label="Your critique">
+<h2>Your critique</h2>
+<p class="sub">Work through the four layers. Short, specific answers are fine.</p>
+<p class="sub" style="font-weight: 600; color: var(--ink); margin-top: 4px;">Copy your critique into the shared Google document for discussion.</p>
+<label for="grp">Group or names</label><input type="text" id="grp" autocomplete="off">
+<label for="c1">1. Data <small>Who is in the data and who might be missing? How was it collected?</small></label><textarea id="c1"></textarea>
+<label for="c2">2. Model <small>What is it optimizing for? What does it ignore?</small></label><textarea id="c2"></textarea>
+<label for="c3">3. Deployment <small>Who has to approve the cuts, and what could riders do if they disagreed?</small></label><textarea id="c3"></textarea>
+<label for="c4">4. Outcomes <small>Who benefits and who bears the cost?</small></label><textarea id="c4"></textarea>
+<label for="c5">What would you change? <small>Name one change to the data, the model or the process that would make this more inclusive.</small></label><textarea id="c5"></textarea>
+<div class="row"><button id="cp">Copy my critique</button><button class="ghost" id="cl">Clear</button><span id="msg" role="status"></span></div>
+<textarea id="out" readonly aria-label="Critique text to copy manually"></textarea>
+</section>
+</main>
+
+<script>
+const R=[
+["R1 Downtown Express",9,1800,1900,12,8,6],["R2 Tech Park Shuttle",8,1500,1550,8,4,2],
+["R3 University Line",7,1400,1500,25,20,3],["R4 Lakeside Loop",6,900,950,10,6,10],
+["R5 Eastside Local",6,500,1100,55,48,18],["R6 Industrial Estate",5,300,800,60,52,8],
+["R7 Senior Housing Link",4,250,600,40,45,70],["R8 Southside Crosstown",6,450,1000,58,50,22],
+["R9 Old Town Circulator",4,600,650,22,18,25],["R10 Harbour Feeder",5,700,750,15,10,8]];
+const $=id=>document.getElementById(id);
+const sum=(a,f)=>a.reduce((s,x)=>s+f(x),0);
+const eff=r=>r[2]/r[1];
+const cut=new Set([...R].sort((a,b)=>eff(a)-eff(b)).slice(0,3).map(r=>r[0]));
+const C=R.filter(r=>cut.has(r[0]));
+const pc=x=>Math.round(x*100)+"%";
+const totC=sum(R,r=>r[1]),totT=sum(R,r=>r[2]);
+$("stats").innerHTML=
+ `<div class="s"><b>${pc(sum(C,r=>r[1])/totC)}</b><span>Operating cost saved</span></div>`+
+ `<div class="s"><b>${sum(C,r=>r[2]).toLocaleString()}</b><span>Daily riders affected (${pc(sum(C,r=>r[2])/totT)} of system)</span></div>`+
+ `<div class="s"><b>3 of 10</b><span>Routes removed</span></div>`;
+$("tb").innerHTML=R.map(r=>`<tr class="${cut.has(r[0])?"cut":""}"><td>${r[0]}</td><td class="n">${r[1]}</td><td class="n">${r[2].toLocaleString()}</td><td class="n">${eff(r).toFixed(0)}</td><td><span class="tag">${cut.has(r[0])?"CUT":"KEEP"}</span></td></tr>`).join("");
+
+const F=["grp","c1","c2","c3","c4","c5"],K="busreview_v1";
+try{const s=JSON.parse(localStorage.getItem(K)||"{}");F.forEach(f=>{if(s[f])$(f).value=s[f]})}catch(e){}
+const save=()=>{try{const s={};F.forEach(f=>s[f]=$(f).value);localStorage.setItem(K,JSON.stringify(s))}catch(e){}};
+F.forEach(f=>$(f).addEventListener("input",save));
+const txt=()=>`Group: ${$("grp").value||"(unnamed)"}\nAI recommendation: cut R6, R7, R8\n\n1. Data: ${$("c1").value}\n\n2. Model: ${$("c2").value}\n\n3. Deployment: ${$("c3").value}\n\n4. Outcomes: ${$("c4").value}\n\nWhat I would change: ${$("c5").value}`;
+$("cp").onclick=async()=>{
+ const t=txt();
+ try{await navigator.clipboard.writeText(t);$("msg").textContent="Copied! Paste it into your shared Google document."}
+ catch(e){const o=$("out");o.style.display="block";o.value=t;o.select();$("msg").textContent="Select the text below and copy it."}
+};
+$("cl").onclick=()=>{if(confirm("Clear everything you've written?")){F.forEach(f=>$(f).value="");save();$("out").style.display="none";$("msg").textContent=""}};
+</script>
+</body>
+</html>
